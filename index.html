@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paste File</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-header is-justify-content-center p-2">
+            <div class="file is-boxed is-justify-content-center">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="resume">
+                    <span class="file-cta">
+                        <span class="file-icon">
+                            📷
+                        </span>
+                        <span class="file-label">
+                            Choose a file… Or copy a file and paste using CTRL+V
+                        </span>
+                    </span>
+                </label>
+            </div>
+        </div>
+        <div class="card-image">
+            <figure class="image is-4by3 hide">
+                <img src="" alt="Placeholder image" id="disp-image">
+            </figure>
+        </div>
+    </div>
+    <script src="/file-paste.js" defer></script>
+    <script>
+        const fileInput = document.querySelector(".file-input");
+        const dispImage = document.querySelector("#disp-image");
+        fileInput.addEventListener('change', e => {
+            const file = fileInput.files?.[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                dispImage.src = url;
+                dispImage.closest('figure').classList.remove('hide');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', e => {
+            new PasteFile(fileInput);
+        });
+    </script>
+</body>
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+
+</html>
